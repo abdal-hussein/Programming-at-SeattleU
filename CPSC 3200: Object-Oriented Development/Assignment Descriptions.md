@@ -4,24 +4,19 @@
 ### P1 - Design by Contract
 #### Grade Recieved: 80/100
 #### Language: C#
-#### Assignment
 
 ### P2 - Composition
 #### Grade Recieved: 91/100
 #### Language: C++
-#### Assignment
 
 ### P3 - Inheritance
 #### Grade Recieved: 96/100
 #### Language: C#
-#### Assignment
 
 ### P4 - Operator Overloading
 #### Grade Recieved: 98/100
 #### Language: C++
-#### Assignment
 
 ### P5 - Multiple Inheritance
 #### Grade Recieved: 91/100
 #### Language: C#
-#### Assignment
