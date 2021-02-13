@@ -1,7 +1,7 @@
 # CPSC 3200 Object-Oriented Development
 ## Assignment Descriptions
 
-### P1 - Design by Contract
+### P1 - Program by Contract
 #### Grade Recieved: 80/100
 #### Language: C#
 
