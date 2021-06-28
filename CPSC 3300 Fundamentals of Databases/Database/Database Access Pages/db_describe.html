@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title> Access to the event scheduling database </title>
+    <!--<link rel="stylesheet" type="text/css" href="db.css" media="screen"/>-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class = "bg-dark">
+<p>
+<div class = "row justify-content-center">
+    <div class = "btn-group">
+        <a href="db_describe.html" class="btn btn-primary" role="button">Describe</a>
+        <a href="db_select.html" class="btn btn-success" role="button">Select</a>
+        <a href="db_insert.html" class="btn btn-warning" role="button">Insert</a>
+        <a href="db_delete.html" class="btn btn-danger" role="button">Delete</a>
+    </div>
+</div>
+<form action = "http://css1.seattleu.edu/~thoresonjust/db3300/db.php" method = "post" >
+    <div class = "container">
+        <h1 class = "text-center text-white">Select a table to get its information:</h1>
+        <br />
+        <div class = "row justify-content-center">
+            <div class = "col">
+                <div class = "row justify-content-center">
+                    <select class = "form-select form-select-lg" name = "desc" aria-label = "Default select example">
+                        <option selected>Select table</option>
+                        <option value = "Professor">Professor</option>
+                        <option value = "Student">Student</option>
+                        <option value = "Event">Event</option>
+                        <option value = "Location">Location</option>
+                        <option value = "SharedWith">SharedWith</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class = "row justify-content-center">
+            <input type = "reset" value = "Reset" /> &nbsp;
+            <input type = "submit" value = "Submit request" />
+        </div>
+    </div>
+</form>
+</p>
+</body>
+</html>
