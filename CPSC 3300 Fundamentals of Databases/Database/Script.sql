@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS Location;
 DROP TABLE IF EXISTS Student;
 DROP TABLE IF EXISTS Professor;
 
+# Create Tables
 CREATE TABLE Professor (
 	FacultyID 	INTEGER			NOT NULL,
     FacultyName	VARCHAR(40) 	NOT NULL,
@@ -59,12 +60,15 @@ CREATE TABLE SharedWith (
 							ON DELETE CASCADE
 );
 
+
+# Describe Tables
 DESC Professor;
 DESC Student;
 DESC Location;
 DESC Event;
 DESC SharedWith;
 
+# Insert some data into the tables
 INSERT INTO Event (EventID, FacultyID, Title,TimeZone,EventStart,EventEnd,OnlineStatus,EventDesc)
 VALUES  (191, 189, "Meeting for BIOL 3350",	"America/Los_Angeles", "2022-06-01 00:21:59", "2022-06-01 01:21:59", 1, "This is an event description"),
 		(192, 18, "Meeting for SPAN 4940", "America/Los_Angeles", "2022-03-16 04:10:08", "2022-03-16 05:10:08",	1, "Event descriptions are not necessary"),
@@ -79,25 +83,29 @@ VALUES  (196, 136, "Meeting for PHYS 4200", "America/Los_Angeles", "2022-01-15 1
 		(199, 132, "Meeting for CPSC 1250", "America/Los_Angeles", "2022-04-07 11:23:22", "2022-04-07 12:23:22"),		
 		(200, 40, "Meeting for BIOL 4360", "America/Los_Angeles", "2022-02-26 19:02:50", "2022-02-26 20:02:50");
 
+# View data tuples from tables
 SELECT * FROM Professor;
 SELECT * FROM Student;
 SELECT * FROM Location;
 SELECT * FROM Event;
 SELECT * FROM SharedWith;
 
+# Count number of tuples in each table
 SELECT COUNT(*) FROM Professor;
 SELECT COUNT(*) FROM Student;
 SELECT COUNT(*) FROM Location;
 SELECT COUNT(*) FROM Event;
 SELECT COUNT(*) FROM SharedWith;
 
+# View five data tuples from each table
 SELECT * FROM Professor 	LIMIT 5;
 SELECT * FROM Student 		LIMIT 5;
 SELECT * FROM Location 		LIMIT 5;
 SELECT * FROM Event 		LIMIT 5;
 SELECT * FROM SharedWith 	LIMIT 5;
 
-# PDA5
+
+# PDA5: SQL DML Practice
 # Part a)
 
 SELECT * FROM Student LIMIT 20;
