@@ -2,8 +2,8 @@
 ## Assignment Descriptions
 
 ### P1 - Program by Contract
-#### Grade Recieved: 80/100
-#### Language: C#
+Grade Recieved: 80/100
+Language: C#
 
 ### P2 - Composition
 #### Grade Recieved: 91/100
