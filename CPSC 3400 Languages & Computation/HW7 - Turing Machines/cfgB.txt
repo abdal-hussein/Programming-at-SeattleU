@@ -1,0 +1,3 @@
+S -> xzS | T
+T -> zT | zyT | xxT | zU | zyU | xxU
+U -> ɛ

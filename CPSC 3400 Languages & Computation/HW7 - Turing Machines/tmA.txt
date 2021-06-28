@@ -1,0 +1,38 @@
+# Justin Thoreson
+# CPSC 3400
+# HW7: tmA.txt
+# 06 June 2021
+
+# start in q0, accept in q10
+0, 10
+
+# Transition function, 𝞭
+0, f, 1, f, R
+0, d, 2, x, R
+0, e, 3, x, R
+1, B, 10, B, L
+2, d, 2, d, R
+2, e, 2, e, R
+2, f, 4, f, R
+3, d, 3, d, R
+3, e, 3, e, R
+3, f, 5, f, R
+4, y, 4, y, R
+4, d, 6, y, L
+5, y, 5, y, R
+5, e, 7, y, L
+6, y, 6, y, L
+6, d, 6, d, L
+6, e, 6, e, L
+6, f, 6, f, L
+6, x, 8, x, R
+7, y, 7, y, L
+7, d, 7, d, L
+7, e, 7, e, L
+7, f, 7, f, L
+7, x, 8, x, R
+8, d, 2, x, R
+8, e, 3, x, R
+8, f, 9, f, R
+9, y, 9, y, R
+9, B, 10, B, L
