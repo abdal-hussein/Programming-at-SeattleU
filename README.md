@@ -2,7 +2,7 @@
 
 ##### This repository contains programming assignments I worked on for various classes at Seattle University. Assignments uploaded to this repository are meant to illustrate my personal progress throughout each course.
 
-#### Assignments in this repo are from the following courses:
+##### Assignments in this repo are from the following courses:
 - CPSC 3200       Object-Oriented Development - Fall Quarter 2020
 - CPSC 3300       Fundamentals of Databases   - Spring 2021 
 - CPSC 3400       Languages & Computation     - Spring 2021
