@@ -32,10 +32,13 @@ Exercise 2: "Write a function elimDuplicates that takes a list of integers and e
 Exercise 3: "Write the following binary search tree functions for a binary search tree of integers. 
 
 Use the following type definition for a BST (copy this into your solution):
+
+```F#
 // Tree definition for problem 3
 type BST =
     | Empty
-    | TreeNode of int * BST * BST
+    | TreeNode of int * BST * BST<code>
+```
     
 Insert value tree: Inserts the value into the tree and returns the resulting tree. The resulting tree does NOT need to be balanced. If the value already exists in the tree, return the tree without inserting the value.
 
