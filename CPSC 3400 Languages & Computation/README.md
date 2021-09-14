@@ -31,22 +31,22 @@ Task: Use functional programming to perform three exercises.
 
 * Exercise 3: "Write the following binary search tree functions for a binary search tree of integers. 
 
-Use the following type definition for a BST (copy this into your solution):
+    * Use the following type definition for a BST (copy this into your solution):
 
-```F#
-// Tree definition for problem 3
-type BST =
-    | Empty
-    | TreeNode of int * BST * BST<code>
-```
+    ```F#
+    // Tree definition for problem 3
+    type BST =
+      | Empty
+      | TreeNode of int * BST * BST<code>
+    ```
     
-Insert value tree: Inserts the value into the tree and returns the resulting tree. The resulting tree does NOT need to be balanced. If the value already exists in the tree, return the tree without inserting the value.
+    * Insert value tree: Inserts the value into the tree and returns the resulting tree. The resulting tree does NOT need to be balanced. If the value already exists in the tree, return the tree without inserting the value.
 
-Search value tree: Returns true if the value is in the tree and false otherwise.
+    * Search value tree: Returns true if the value is in the tree and false otherwise.
 
-Count func tree: The parameter func is a Boolean function that takes a single parameter and returns true or false. The function tests the value of each node with func and returns the number of nodes that evaluate to true.
+    * Count func tree: The parameter func is a Boolean function that takes a single parameter and returns true or false. The function tests the value of each node with func and returns the number of nodes that evaluate to true.
 
-EvenCount tree: Returns the number of nodes that contain even integers. REQUIREMENT: This function must be a single call to count (part 3C) using a lambda function."
+    * EvenCount tree: Returns the number of nodes that contain even integers. REQUIREMENT: This function must be a single call to count (part 3C) using a lambda function."
 
 Grade: 50/50
 
@@ -101,7 +101,7 @@ Task: Create two context-free grammars and two turing machines.
 Part 1 (CFG):
 * "(Filename: cfgA.txt) Create a context-free grammar for the language that accepts all strings in the alphabet T={0,1} where the number of 0s in x is divisible by 3, or the length of x is divisible by 3, or both."
 * "(Filename: cfgB.txt) Create a context-free grammar for the language that accepts all strings in the alphabet T={x,y,z} that is equivalent to the regular expression: ```^(xz)*(zy?|xx)+$```"
-* 
+
 Part 2 (Turing Machines):
 * "(Filename tmA.txt) Design a Turing machine on the input alphabet {d,e,f} that accepts strings represented using this Python regular expression that uses back references: ```r'^([de]*)f\1$'``` For this machine, the final tape output does not matter. You will need to modify the tape in order to complete this exercise."
 * "(Filename tmB.txt) Design a Turing machine on the input alphabet {x,y,z}  that removes all z characters from the input such that there are no gaps. If the input string is xzzyxzy, the output should be xyxy. For this machine, it does not matter if the string is accepted or rejected. Hint: The final string does not need to reside on the same part of the tape where it started."
