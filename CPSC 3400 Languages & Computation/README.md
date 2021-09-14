@@ -25,11 +25,11 @@ Grade: 50/50 (Everyone who completed received 50/50 as per instructor)
 
 Task: Use functional programming to perform three exercises.
 
-Exercise 1: "Write a function maxCylinderVolume that takes a list of floating-point tuples that represent dimensions of a cylinder and returns the volume of the cylinder that has the largest volume. Each tuple has two floating point values that are both greater than zero. The first value is the radius r and the second value is the height h."
+* Exercise 1: "Write a function maxCylinderVolume that takes a list of floating-point tuples that represent dimensions of a cylinder and returns the volume of the cylinder that has the largest volume. Each tuple has two floating point values that are both greater than zero. The first value is the radius r and the second value is the height h."
 
-Exercise 2: "Write a function elimDuplicates that takes a list of integers and eliminates consecutive duplicates; replacing them with a single instance of the value. Order is preserved and non- consecutive duplicates are unaffected."
+* Exercise 2: "Write a function elimDuplicates that takes a list of integers and eliminates consecutive duplicates; replacing them with a single instance of the value. Order is preserved and non- consecutive duplicates are unaffected."
 
-Exercise 3: "Write the following binary search tree functions for a binary search tree of integers. 
+* Exercise 3: "Write the following binary search tree functions for a binary search tree of integers. 
 
 Use the following type definition for a BST (copy this into your solution):
 
@@ -52,13 +52,28 @@ Grade: 50/50
 
 ##### HW5 - F# Algebraic Simplifier: 
 
-Task:
+Task: "Write an F# function simplify that simplifies an algebraic expression. The expression is using a similar expression class used for symbolic differentiation in class. It removes the divide and power operators but adds a second variable Y. It is shown below.
+
+```F#
+type Expression =
+    | X
+    | Y
+    | Const of float
+    | Neg of Expression
+    | Add of Expression * Expression
+    | Sub of Expression * Expression
+    | Mul of Expression * Expression
+```
+
+To start, download the hw5_prep.fsx  Download hw5_prep.fsx, rename it to hw5.fsx, and use it as a starting point for your assignment. Edit the initial header comment to have your own name and remarks and then search for all the FIXME strings to see where you need to add materials. Your file hw5.fsx now contains an Expression type, an exprToString function that converts an expression to a more readable string format, and contains tests for the examples shown in this document."
 
 Grade: 50/50
 
 ##### HW6 - Formal Languages:
 
-Task:
+Task: Create four regular expressions and three DFAs
+
+* 
 
 Grade: 50/50
 
