@@ -2,6 +2,8 @@
 
 The Languages & Computation course touched on details pertaining to the aspects of different programming languages and paradigms. Some of the specific topics covered included Python, F#, regular expressions, context-free gramars, Turing machines, DFAs and NFAs, computability, interpretation, garbage collection, memory, names, variables, types, and compilation. 
 
+For some assignments, parts of the code were provided by the instructor to use either as a foundation for extending the code and completing the assignment or as a simulator to run the students' files.
+
 ## Assignment details and grades:
 #### HW1 - Python Color Survey: 
 
