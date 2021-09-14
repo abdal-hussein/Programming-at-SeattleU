@@ -73,7 +73,16 @@ Grade: 50/50
 
 Task: Create four regular expressions and three DFAs
 
-* 
+Part 1:
+* "Create a single regular expression that matches a string of digits and contains exactly two fives. Examples of acceptable strings include: "15445 " , " 55 " , " 05563 " . However, the string is to be rejected if it contains anything other than digits."
+* "Create a single regular expression that matches a time expressed in the form '1:45 PM'. The hours part must be a number from 1 to 12, the minutes range from 00 to 59, and the time must indicate either AM or PM (uppercase only and preceded by exactly one space)."
+* Create a single regular expression that matches a string representing a comma separated list of variable names such as: hello, get_max, sum3
+..* A variable name consists of letters, digits, and underscores but cannot start with a digit.
+..* There is exactly one space after every comma. No other spaces are allowed.
+..* Commas and spaces are not allowed before the first name and after the last name.
+..* An empty string is considered a match.
+..* It is not a match if the list is not properly formed or if one of the variable names is invalid."
+
 
 Grade: 50/50
 
