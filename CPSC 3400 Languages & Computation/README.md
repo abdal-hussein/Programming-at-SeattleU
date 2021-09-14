@@ -91,7 +91,7 @@ Part 1 (REGEX):
 Part 2 (DFA): "Create DFA for the following language specifications. The DFA must be expressed as files that can be used as inputs for the DFA simulator described in the provided document.
 * All strings on 𝝨 = {A, B, C} that contain each letter (A, B, and C) at least once.
 * All strings on 𝝨 = {X, Y, Z} that contains two consecutive X's or three consecutive Z's (or both).
-* All strings on 𝝨 = {A, B, C, D} that adhere to this Python regular expression:  ^(A?(B|CD)*A+D)$"
+* All strings on 𝝨 = {A, B, C, D} that adhere to this Python regular expression:  ```^(A?(B|CD)*A+D)$```"
 
 Grade: 50/50
 
@@ -100,10 +100,10 @@ Task: Create two context-free grammars and two turing machines.
 
 Part 1 (CFG):
 * "(Filename: cfgA.txt) Create a context-free grammar for the language that accepts all strings in the alphabet T={0,1} where the number of 0s in x is divisible by 3, or the length of x is divisible by 3, or both."
-* "(Filename: cfgB.txt) Create a context-free grammar for the language that accepts all strings in the alphabet T={x,y,z} that is equivalent to the regular expression: ^(xz)*(zy?|xx)+$"
-
+* "(Filename: cfgB.txt) Create a context-free grammar for the language that accepts all strings in the alphabet T={x,y,z} that is equivalent to the regular expression: ```^(xz)*(zy?|xx)+$```"
+* 
 Part 2 (Turing Machines):
-* "(Filename tmA.txt) Design a Turing machine on the input alphabet {d,e,f} that accepts strings represented using this Python regular expression that uses back references: r'^([de]*)f\1$' For this machine, the final tape output does not matter. You will need to modify the tape in order to complete this exercise.
-* (Filename tmB.txt) Design a Turing machine on the input alphabet {x,y,z}  that removes all z characters from the input such that there are no gaps. If the input string is xzzyxzy, the output should be xyxy. For this machine, it does not matter if the string is accepted or rejected. Hint: The final string does not need to reside on the same part of the tape where it started.
+* "(Filename tmA.txt) Design a Turing machine on the input alphabet {d,e,f} that accepts strings represented using this Python regular expression that uses back references: ```r'^([de]*)f\1$'``` For this machine, the final tape output does not matter. You will need to modify the tape in order to complete this exercise."
+* "(Filename tmB.txt) Design a Turing machine on the input alphabet {x,y,z}  that removes all z characters from the input such that there are no gaps. If the input string is xzzyxzy, the output should be xyxy. For this machine, it does not matter if the string is accepted or rejected. Hint: The final string does not need to reside on the same part of the tape where it started."
 
 Grade: 50/50
