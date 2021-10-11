@@ -7,4 +7,3 @@ Assignments in this repo are from the following courses:
 - CPSC 3300       Fundamentals of Databases   - Spring 2021 
 - CPSC 3400       Languages & Computation     - Spring 2021
 - CPSC 3500       Computing Systems           - Spring 2021
-- CPSC 5240/4240  Software as a Service       - Winter Quarter 2021
