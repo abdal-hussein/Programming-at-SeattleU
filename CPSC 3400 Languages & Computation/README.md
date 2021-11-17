@@ -39,7 +39,7 @@ Task: Use functional programming to perform three exercises.
     // Tree definition for problem 3
     type BST =
       | Empty
-      | TreeNode of int * BST * BST<code>
+      | TreeNode of int * BST * BST
     ```
     
     * Insert value tree: Inserts the value into the tree and returns the resulting tree. The resulting tree does NOT need to be balanced. If the value already exists in the tree, return the tree without inserting the value.
