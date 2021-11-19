@@ -8,39 +8,39 @@ DROP TABLE IF EXISTS Professor;
 
 # Create Tables
 CREATE TABLE Professor (
-	FacultyID 	INTEGER			NOT NULL,
+    FacultyID 	INTEGER		NOT NULL,
     FacultyName	VARCHAR(40) 	NOT NULL,
-    Email		VARCHAR(100) 	NOT NULL,
-    Address		VARCHAR(100),
+    Email	VARCHAR(100) 	NOT NULL,
+    Address	VARCHAR(100),
     PRIMARY KEY (FacultyID)
 );
 
 CREATE TABLE Student (
-	StudentID	INTEGER		 	NOT NULL,
+    StudentID	INTEGER		NOT NULL,
     StudentName	VARCHAR(50)  	NOT NULL,
-    Email		VARCHAR(100) 	NOT NULL,
-    GPA			DECIMAL(4, 3) 	NOT NULL,
-    Address		VARCHAR(100),
+    Email	VARCHAR(100) 	NOT NULL,
+    GPA		DECIMAL(4, 3) 	NOT NULL,
+    Address	VARCHAR(100),
     TimeZone	VARCHAR(50),
     PRIMARY KEY (StudentID)
 );
 
 CREATE TABLE Location (
     BuildingName 	VARCHAR(75) 	NOT NULL,
-    RoomNumber 		INT(3)			NOT NULL,
+    RoomNumber 		INT(3)		NOT NULL,
     Address 		VARCHAR(100) 	NOT NULL,
     PRIMARY KEY (BuildingName, RoomNumber)
 );
 
 CREATE TABLE Event (
-	EventID 		INTEGER			NOT NULL,
-    FacultyID		INTEGER 		NOT NULL,
-    Title			VARCHAR(100) 	NOT NULL,
+    EventID 		INTEGER		NOT NULL,
+    FacultyID		INTEGER 	NOT NULL,
+    Title		VARCHAR(100) 	NOT NULL,
     TimeZone 		VARCHAR(50) 	NOT NULL,
-    EventStart 		DATETIME 		NOT NULL,
-    EventEnd 		DATETIME 		NOT NULL,
-    OnlineStatus 	BOOLEAN 		DEFAULT TRUE NOT NULL,
-    BuildingName 	VARCHAR(75)		DEFAULT NULL,
+    EventStart 		DATETIME 	NOT NULL,
+    EventEnd 		DATETIME 	NOT NULL,
+    OnlineStatus 	BOOLEAN 	DEFAULT TRUE NOT NULL,
+    BuildingName 	VARCHAR(75)	DEFAULT NULL,
     RoomNumber  	INT(3)	        DEFAULT NULL,
     EventDesc		VARCHAR(1000),
     PRIMARY KEY (EventID),
@@ -51,7 +51,7 @@ CREATE TABLE Event (
 );
 
 CREATE TABLE SharedWith (
-	EventID   INTEGER NOT NULL,
+    EventID   INTEGER NOT NULL,
     StudentID INTEGER NOT NULL,
     PRIMARY KEY (EventID, StudentID),
     FOREIGN KEY (EventID) REFERENCES Event(EventID)
