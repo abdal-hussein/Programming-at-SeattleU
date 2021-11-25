@@ -4,6 +4,5 @@ This repository contains programming assignments I worked on for various classes
 
 Assignments in this repo are from the following courses:
 - CPSC 3200       Object-Oriented Development - Fall Quarter 2020
-- CPSC 3300       Fundamentals of Databases   - Spring 2021 
 - CPSC 3400       Languages & Computation     - Spring 2021
 - CPSC 3500       Computing Systems           - Spring 2021
