@@ -13,7 +13,6 @@ A dictionary containing the colors and their respective votes can be viewed.
 
 import sys
 
-
 def process_file(file_name):
     """ Takes a file containing a survey of colors and returns
   a dictionary with all the colors as keys and the number of first, second
@@ -111,24 +110,26 @@ def print_dictionary(colors_dict):
     for color in sorted(colors_dict.items()):
         print(color[0] + ':', color[1])
 
+def main():
+    # Process survey in file
+    file_name = sys.argv[1]
+    color_survey = process_file(file_name)
+    print_dictionary(color_survey)
 
-""" Driver Code """
+    # Blue & Green 1st place votes
+    first_place_votes = get_first_place_votes(color_survey, 'blue')
+    print(first_place_votes)
+    first_place_votes = get_first_place_votes(color_survey, 'green')
+    print(first_place_votes)
 
-# Process survey in file
-file_name = sys.argv[1]
-color_survey = process_file(file_name)
-print_dictionary(color_survey)
+    # Colors ordered by vote
+    favorite_colors = create_favorite_color_list(color_survey)
+    print(favorite_colors)
 
-# Blue & Green 1st place votes
-first_place_votes = get_first_place_votes(color_survey, 'blue')
-print(first_place_votes)
-first_place_votes = get_first_place_votes(color_survey, 'green')
-print(first_place_votes)
-
-# Colors ordered by vote
-favorite_colors = create_favorite_color_list(color_survey)
-print(favorite_colors)
-
-# Calculate color scores
-color_scores = create_color_score_dict(color_survey)
-print_dictionary(color_scores)
+    # Calculate color scores
+    color_scores = create_color_score_dict(color_survey)
+    print_dictionary(color_scores)
+       
+if __name__ == '__main__':
+    main()
+    
