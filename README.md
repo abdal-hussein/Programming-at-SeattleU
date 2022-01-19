@@ -11,22 +11,22 @@ Assignments in this repo are from the following courses:
     <th>Quarter Taken</th>
   </tr>
   <tr>
-    <td>CPSC 3200</td>
+    <td><a href="./CPSC 3200 Object-Oriented Development">CPSC 3200</a></td>
     <td>Object-Oriented Development</td>
     <td>Fall 2020</td>
   </tr>
   <tr>
-    <td>CPSC 3400</td>
+    <td><a href="./CPSC 3400 Languages & Computation">CPSC 3400</a></td>
     <td>Languages & Computation</td>
     <td>Spring 2021</td>
   </tr>
   <tr>
-    <td>CPSC 3500</td>
+    <td><a href="./CPSC 3500 Computing Systems">CPSC 3500</a></td>
     <td>Computing Systems</td>
     <td>Spring 2021</td>
   </tr>
   <tr>
-    <td>CPSC 4330</td>
+    <td><a href="./CPSC 4330 Big Data Analytics">CPSC 4330</a></td>
     <td>Big Data Analytics</td>
     <td>Winter 2022</td>
   </tr>
