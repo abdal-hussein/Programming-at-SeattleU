@@ -1,4 +1,4 @@
-# CPSC 3400
+# CPSC 3400 Languages & Computation
 
 The Languages & Computation course touched on details pertaining to the aspects of different programming languages and paradigms. Some of the specific topics covered included Python, F#, regular expressions, context-free gramars, Turing machines, DFAs and NFAs, computability, interpretation, garbage collection, memory, names, variables, types, and compilation. 
 
