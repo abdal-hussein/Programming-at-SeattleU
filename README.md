@@ -9,12 +9,17 @@ Assignments in this repo are from the following courses:
     <th>Course Number</th>
     <th>Course Name</th>
     <th>Quarter Taken</th>
-    <th width="40%" rowspan=6><image alt="Photo" src="./SU_Dark.jpg" /></th>
+    <th width="30%" rowspan=7><image alt="Photo" src="./SU_Dark.jpg" /></th>
   </tr>
   <tr>
     <td><a href="./CPSC 3200 Object-Oriented Development">CPSC 3200</a></td>
     <td>Object-Oriented Development</td>
     <td>Fall 2020</td>
+  </tr>
+  <tr>
+    <td><a href="./CPSC 3300 Fundamentals of Databases">CPSC 3300</a></td>
+    <td>Fundamentals of Databases</td>
+    <td>Spring 2021</td>
   </tr>
   <tr>
     <td><a href="./CPSC 3400 Languages & Computation">CPSC 3400</a></td>
