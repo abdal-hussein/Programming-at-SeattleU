@@ -1,6 +1,6 @@
 # Programming @ Seattle University
 
-This repository contains programming projects and assignments I worked on Seattle University. Projects uploaded to this repository are meant to illustrate my personal progress throughout my academic career.
+This repository contains programming projects and assignments I worked on at Seattle University. Projects uploaded to this repository are meant to illustrate my personal progress throughout my academic career.
 
 ### Courses:
 
