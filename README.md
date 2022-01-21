@@ -9,7 +9,7 @@ This repository contains programming projects and assignments I worked on Seattl
     <th>Course Number</th>
     <th>Course Name</th>
     <th>Quarter Taken</th>
-    <th width="30%" rowspan=7><image alt="Photo" src="./SU_Dark.jpg" /></th>
+    <th width="35%" rowspan=8><image alt="Photo" src="./SU_Dark.jpg" /></th>
   </tr>
   <tr>
     <td><a href="./CPSC 3200 Object-Oriented Development">CPSC 3200</a></td>
@@ -35,6 +35,11 @@ This repository contains programming projects and assignments I worked on Seattl
     <td><a href="./CPSC 4330 Big Data Analytics">CPSC 4330</a></td>
     <td>Big Data Analytics</td>
     <td>Winter 2022</td>
+  </tr>
+  <tr>
+    <td><a href="./CPSC 5240 Software as a Service">CPSC 5240</a></td>
+    <td>Software as a Service</td>
+    <td>Winter 2021</td>
   </tr>
   <tr>
     <td><a href="./CPSC 5700 Computer Graphics">CPSC 5700</a></td>
