@@ -4,26 +4,25 @@ The Languages & Computation course touched on details pertaining to the aspects 
 
 For some assignments, parts of the code were provided by the instructor to use either as a foundation for extending the code and completing the assignment or as a simulator to run the students' files.
 
-## Assignment details and grades:
-#### HW1 - Python Color Survey: 
+## HW1 - Python Color Survey: 
 
 Task: Tabulate the results of a survey where people were asked to vote for their top three favorite colors (in order). The results of the survey are stored in an input file that has one or more lines 
 
 Grade: 46/50
 
-#### HW2 - Python Time Processor: 
+## HW2 - Python Time Processor: 
 
 Task: Process times from an input file using Python data structures. Example format: 4 12 AM.
 
 Grade: 46/50
 
-#### HW3 - Python Garbage Collector: 
+## HW3 - Python Garbage Collector: 
 
 Task: "Create a Python program (hw3.py) that simulates a Mark-Sweep garbage collection algorithm. In this program, named pointers are referred to using variable names such as p, stackPtr, temp3, etc. Heap blocks are referred to using integers."
 
 Grade: 50/50 (Everyone who completed received 50/50 as per instructor)
 
-#### HW4 - F# Exercises:
+## HW4 - F# Exercises:
 
 Task: Use functional programming to perform three exercises.
 
@@ -52,7 +51,7 @@ Task: Use functional programming to perform three exercises.
 
 Grade: 50/50
 
-#### HW5 - F# Algebraic Simplifier: 
+## HW5 - F# Algebraic Simplifier: 
 
 Task: "Write an F# function simplify that simplifies an algebraic expression. The expression is using a similar expression class used for symbolic differentiation in class. It removes the divide and power operators but adds a second variable Y. It is shown below.
 
@@ -71,7 +70,7 @@ To start, download the hw5_prep.fsx  Download hw5_prep.fsx, rename it to hw5.fsx
 
 Grade: 50/50
 
-#### HW6 - Formal Languages:
+## HW6 - Formal Languages:
 
 Task: Create four regular expressions and three DFAs
 
@@ -97,7 +96,7 @@ Part 2 (DFA): "Create DFA for the following language specifications. The DFA mus
 
 Grade: 50/50
 
-#### HW7 - Turing Machines:
+## HW7 - Turing Machines:
 Task: Create two context-free grammars and two turing machines.
 
 Part 1 (CFG):
