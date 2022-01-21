@@ -9,6 +9,7 @@ Assignments in this repo are from the following courses:
     <th>Course Number</th>
     <th>Course Name</th>
     <th>Quarter Taken</th>
+    <th width="40%" rowspan=7><image alt="Photo" src="./SU_Dark.jpg" /></th>
   </tr>
   <tr>
     <td><a href="./CPSC 3200 Object-Oriented Development">CPSC 3200</a></td>
