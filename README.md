@@ -2,7 +2,7 @@
 
 This repository contains programming projects and assignments I worked on Seattle University. Projects uploaded to this repository are meant to illustrate my personal progress throughout my academic career.
 
-Assignments in this repo are from the following courses:
+### Courses:
 
 <table>
   <tr>
