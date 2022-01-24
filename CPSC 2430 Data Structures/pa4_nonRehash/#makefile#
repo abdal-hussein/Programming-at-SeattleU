@@ -1,0 +1,3 @@
+g++ -c -pedantic -Wall -Werror pa4.cpp
+g++ -c -pedantic -Wall -Werror hash.cpp
+g++ -c -pedantic -Wall -Werror movie.cpp

@@ -1,0 +1,6 @@
+banana,3.99,food
+shampoo,4.79,beauty
+chair,24.20,home
+milk,2.59,food
+carrot,0.69,food
+skirt,25.99,clothing
