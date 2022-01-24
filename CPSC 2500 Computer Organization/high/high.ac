@@ -1,0 +1,16 @@
+# Justin Thoreson
+# HW3 - high.ac
+# 7 October 2020
+
+# Code Section
+LOOP:	in r1			# 1. Get input
+	bez r1 &THEN	# 2a. If input is equal to zero, jump to THEN
+	bgz r1 &THEN	# 2b. If input is greater than zero, jump to THEN
+	bez r0 &END		# 2c. Else, input is negative, jump to END
+THEN:	sub r3 r1 r2	# 3. Subtract current input from largest input
+	bgz r3 &COND	# 4a. If result (r3) is greater than 0, jump to COND
+	bez r0 &LOOP	# 4b. Else, jump to LOOP (get another input)
+COND: add r2 r3 r2	# 5. Set current input to largest input
+	bez r0 &LOOP	# 6. Input is non-negative, so get another input
+END:	out r2		# 7. Output largest input or 0 if no positive input
+	.halt			# 8. End program

@@ -1,0 +1,23 @@
+# Justin Thoreson
+# HW3 - div.ac
+# 7 October 2020
+
+# Code Section
+	in r1			# 1. Get dividend
+	in r2			# 2. Get divisor
+	bgz r1 &COND	# 3a. If dividend is positive, jump to COND
+	bez r0 &END		# 3b. Else end program (jump to END)
+COND:	bgz r2 &LOOP	# 4a. If divisor is positive, jump to LOOP
+	bez r0 &END 	# 4b. Else end program (jump to END)
+LOOP:	sub r1 r1 r2	# 5. Subtract divisor from dividend
+	bez r1 &THEN	# 6a. If result (r1) is equal to 0...
+	bgz r1 &THEN	# 7b. If result (r1) is greater than 0...
+	bez r0 &ELSE
+THEN: addi r3 r3 1	# 8. Then increment quotient
+	bgz r1 &LOOP	# 9. If r1 is greater than 0, repeat steps 5-8(looped subraction)
+	bez r0 &ELSE
+ELSE: bez r1 &PRINT	# 10. Else, if remainder (r1) is equal to 0, jump to PRINT
+	add r1 r1 r2	# 11. Else set the remainder (r1) (add divisor to last result to account for temporary negative value)
+PRINT:out r3		# 12. Output quotient
+	out r1		# 13. Output remainder
+END:	.halt			# 14. End program
