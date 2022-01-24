@@ -9,7 +9,12 @@ This repository contains programming projects and assignments I worked on at Sea
     <th>Course Number</th>
     <th>Course Name</th>
     <th>Quarter Taken</th>
-    <th width="35%" rowspan=8><image alt="Photo" src="./SU_Dark.jpg" /></th>
+    <th width="35%" rowspan=9><image alt="Photo" src="./SU_Dark.jpg" /></th>
+  </tr>
+  <tr>
+    <td><a href="./CPSC 2430 Data Structures">CPSC 2430</a></td>
+    <td>Data Structures</td>
+    <td>Spring 2020</td>
   </tr>
   <tr>
     <td><a href="./CPSC 3200 Object-Oriented Development">CPSC 3200</a></td>
