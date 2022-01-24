@@ -9,7 +9,7 @@ This repository contains programming projects and assignments I worked on at Sea
     <th>Course Number</th>
     <th>Course Name</th>
     <th>Quarter Taken</th>
-    <th width="35%" rowspan=15><image alt="Photo" src="./SU_Dark.jpg" /></th>
+<!-- <th width="35%" rowspan=15><image alt="Photo" src="./SU_Dark.jpg" /></th> -->
   </tr>
   <tr>
     <td colspan=3 align="center">Computer Science</td>
@@ -71,7 +71,7 @@ This repository contains programming projects and assignments I worked on at Sea
     <td colspan=3 align="center">Math</td>
   </tr>
   <tr>
-    <td><a href="./MATH 2310 Prob. & Stats for Sci. & Eng.">MATH 2310</a></td>
+    <td><a href="./MATH 2310 Probability & Statistics">MATH 2310</a></td>
     <td>Prob. & Stats for Sci. & Eng.</td>
     <td>Fall 2020</td>
   </tr>
