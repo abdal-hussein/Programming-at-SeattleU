@@ -1,1 +1,0 @@
-# MATH 2310 Probability & Statistics for Science & Engineering
