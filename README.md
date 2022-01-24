@@ -12,9 +12,6 @@ This repository contains programming projects and assignments I worked on at Sea
 <!-- <th width="35%" rowspan=15><image alt="Photo" src="./SU_Dark.jpg" /></th> -->
   </tr>
   <tr>
-    <td colspan=3 align="center">Computer Science</td>
-  </tr>
-  <tr>
     <td><a href="./CPSC 2430 Data Structures">CPSC 2430</a></td>
     <td>Data Structures</td>
     <td>Spring 2020</td>
@@ -58,21 +55,5 @@ This repository contains programming projects and assignments I worked on at Sea
     <td><a href="./CPSC 5700 Computer Graphics">CPSC 5700</a></td>
     <td>Computer Graphics</td>
     <td>Fall 2021</td>
-  </tr>
-  <tr>
-    <td colspan=3 align="center">Data Science</td>
-  </tr>
-  <tr>
-    <td><a href="./DATA 3310 Data Visualization">DATA 3310</a></td>
-    <td>Data Visualization</td>
-    <td>Winter 2022</td>
-  </tr>
-  <tr>
-    <td colspan=3 align="center">Math</td>
-  </tr>
-  <tr>
-    <td><a href="./MATH 2310 Probability & Statistics">MATH 2310</a></td>
-    <td>Prob. & Stats for Sci. & Eng.</td>
-    <td>Fall 2020</td>
   </tr>
 </table>
