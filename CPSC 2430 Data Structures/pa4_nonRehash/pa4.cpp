@@ -37,9 +37,6 @@
 //  6. If any input provided by the user is invalid or if a provided genre or
 //     movie cannot be found, the user will be notified.
 //
-// EXAMPLES:
-//  1)
-//
 // SOURCES:
 //  CPSC 2430: pa3.cpp
 //   - modified file reading function  
