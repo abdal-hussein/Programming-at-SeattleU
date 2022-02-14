@@ -15,4 +15,9 @@ Homework is tested via a virtual image w/ Docker, as well as in Amazon Web Servi
     <td>Calculates the average review rating for each Amazon product</td>
     <td>100/100</td>
   </tr>
-</table
+  <tr>
+    <td><a href="./HW2">HW2</a></td>
+    <td>Generate pairs of customers who provided a rating of four or above to three common products</td>
+    <td>100/100</td>
+  </tr>
+</table>
