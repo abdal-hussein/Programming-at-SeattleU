@@ -30,8 +30,8 @@ public class Reducer1 extends Reducer<Text, Text, UserPairWritable, Text>{
 				
 				// Order the pair of customers
 				int order = left.compareTo(right);
-				String user1 = order < 0 ? left.toString() : right.toString();
-				String user2 = order < 0 ? right.toString() : left.toString();
+				String user1 = order < 0 ? left : right;
+				String user2 = order < 0 ? right : left;
 				UserPairWritable pair = new UserPairWritable(user1, user2);
 				
 				// Output user pair as key with productId as value
