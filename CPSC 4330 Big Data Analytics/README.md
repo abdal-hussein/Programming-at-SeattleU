@@ -20,4 +20,13 @@ Homework is tested via a virtual image w/ Docker, as well as in Amazon Web Servi
     <td>Generate pairs of customers who provided a rating of four or above to three common products</td>
     <td>100/100</td>
   </tr>
+  <tr>
+    <td rowspan=2><a href="./HW3">HW3</a></td>
+    <td>Part 1</td>
+    <td>TBD</td>
+  </tr>
+  <tr>
+    <td>Part 2</td>
+    <td>TBD</td>
+  </tr>
 </table>
