@@ -1,3 +1,26 @@
 # CPSC 3500 Computing Systems
 
-For this course, the instructor graded mainly on functionality rather than code design, as the computing systems course largely emphasized conceptual details instead of code. Thus, a significant fraction of the necessary (pseudo)code was provided for each assignment, and it was the job of the students to extend the code to provide a functioning product. Since the professor and the graders found each of the listed assignments functional, they all attained grade of 100%.
+The course covered Computer system infrastructure, implementation, and design. Topics include operating systems, resource allocation and scheduling, concurrency, synchronization, virtualization, reliability, networking, and security. Development of multithreaded concurrent programs and client-server networking programs.
+
+<table>
+  <tr>
+    <th>Program</th>
+    <th>Description</th>
+    <th>Grade</th>
+  </tr>
+  <tr>
+    <td><a href="./HW2 - Scheduling Algorithms">HW2</a></td>
+    <td>Scheduling Algorithms</td>
+    <td>100/100</td>
+  </tr>
+  <tr>
+    <td><a href="./HW3 - Multithreaded Programming">HW3</a></td>
+    <td>Multithreaded Programming</td>
+    <td>100/100</td>
+  </tr>
+  <tr>
+    <td><a href="./HW6 - Client & Server Programming">HW6</a></td>
+    <td>Client-Server Programming</td>
+    <td>100/100</td>
+  </tr>
+</table>
