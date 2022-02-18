@@ -1,7 +1,7 @@
 # HW7 - Turing Machines:
 Created two context-free grammars and two turing machines.
 
-### Part 1 (Context-Free Gramamars):
+### Part 1 (Context-Free Grammars):
 * "(Filename: cfgA.txt) Create a context-free grammar for the language that accepts all strings in the alphabet T={0,1} where the number of 0s in x is divisible by 3, or the length of x is divisible by 3, or both."
 * "(Filename: cfgB.txt) Create a context-free grammar for the language that accepts all strings in the alphabet T={x,y,z} that is equivalent to the regular expression: ```^(xz)*(zy?|xx)+$```"
 
