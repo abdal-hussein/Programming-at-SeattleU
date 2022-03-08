@@ -22,9 +22,18 @@ Homework is tested via a virtual image w/ Docker, as well as in Amazon Web Servi
   <tr>
     <td rowspan=2><a href="./HW3">HW3</a></td>
     <td>Part 1 - Calculates the average review rating for each Amazon product</td>
-    <th rowspan=2>Python</th>
+    <th rowspan=3>Python</th>
   </tr>
   <tr>
     <td>Part 2 - Outputs the top ten most popular words across various works of Shakespeare</td>
+  </tr>
+  <tr>
+    <td><a href="./HW4">HW4</a></td>
+    <td>Implements the K-means clustering algorithm in Spark via RDDs</td>
+  </tr>
+  <tr>
+    <td><a href="./HW5">HW5</a></td>
+    <td>Queries in Hive</td>
+    <th>HiveQL</th>
   </tr>
 </table>
