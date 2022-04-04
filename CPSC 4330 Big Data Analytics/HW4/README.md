@@ -1,4 +1,4 @@
-# HW4: K-Means
+# HW4: [K-Means](https://github.com/thoresonjd/k-means_spark)
 
 Implements the K-means clustering algorithm in Spark via RDDs
 
