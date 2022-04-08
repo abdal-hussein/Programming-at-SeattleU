@@ -1,6 +1,6 @@
 # CPSC 3200 Object-Oriented Development
 
-Object-Oriented Development emphasizes class design and relationships. Topics include interfaces, contracts, containment, composition, inheritance, overloading and polymorphism. Analysis of alternative design choices, software maintainability and code reuse.
+Object-Oriented Development emphasizes class design and relationships. Topics include interfaces, contracts, containment, composition, inheritance, encapsulation, polymorphism, dependency injection, and overloading. Analysis of alternative design choices, software maintainability and code reuse.
 
 <table>
   <tr>
