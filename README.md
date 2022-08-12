@@ -1,15 +1,13 @@
-# Programming @ Seattle University
+<h1 align="center">Programming @ Seattle University</h1>
 
 This repository contains programming projects and assignments I worked on at Seattle University. Projects uploaded to this repository are meant to illustrate my personal progress throughout my academic career.
-
-### Courses:
 
 <table>
   <tr>
     <th>Course Number</th>
     <th>Course Name</th>
     <th>Quarter Taken</th>
-<!-- <th width="35%" rowspan=15><image alt="Photo" src="./SU_Dark.jpg" /></th> -->
+    <th width="35%" rowspan=12><image alt="Photo" src="./SU_Dark.jpg" /></th>
   </tr>
   <tr>
     <td><a href="./CPSC 2430 Data Structures">CPSC 2430</a></td>
