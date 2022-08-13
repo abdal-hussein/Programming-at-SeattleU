@@ -43,6 +43,11 @@ This repository contains programming projects and assignments I worked on at Sea
     <td>Spring 2021</td>
   </tr>
   <tr>
+    <td><a href="./CPSC 4240 Software as a Service">CPSC 4240</a></td>
+    <td>Software as a Service</td>
+    <td>Winter 2021</td>
+  </tr>
+  <tr>
     <td><a href="./CPSC 4330 Big Data Analytics">CPSC 4330</a></td>
     <td>Big Data Analytics</td>
     <td>Winter 2022</td>
@@ -56,11 +61,6 @@ This repository contains programming projects and assignments I worked on at Sea
     <td><a href="./CPSC 5210 Software Testing & Debugging">CPSC 5210</a></td>
     <td>Software Testing & Debugging</td>
     <td>Spring 2022</td>
-  </tr>
-  <tr>
-    <td><a href="./CPSC 5240 Software as a Service">CPSC 5240</a></td>
-    <td>Software as a Service</td>
-    <td>Winter 2021</td>
   </tr>
   <tr>
     <td><a href="./CPSC 5700 Computer Graphics">CPSC 5700</a></td>
