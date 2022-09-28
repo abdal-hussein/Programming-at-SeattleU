@@ -10,7 +10,6 @@ This repository contains programming projects and assignments I worked on at Sea
     <th>Course Number</th>
     <th>Course Name</th>
     <th>Quarter Taken</th>
-    <!-- <th width="35%" rowspan=12><image alt="Photo" src="./SU_Dark.jpg" /></th> -->
   </tr>
   <tr>
     <td><a href="./CPSC 2430 Data Structures">CPSC 2430</a></td>
@@ -61,6 +60,11 @@ This repository contains programming projects and assignments I worked on at Sea
     <td><a href="./CPSC 5210 Software Testing & Debugging">CPSC 5210</a></td>
     <td>Software Testing & Debugging</td>
     <td>Spring 2022</td>
+  </tr>
+  <tr>
+    <td><a href="./CPSC 5520 Distributed Systems">CPSC 5520</a></td>
+    <td>Distributed Systems</td>
+    <td>Fall 2022</td>
   </tr>
   <tr>
     <td><a href="./CPSC 5700 Computer Graphics">CPSC 5700</a></td>
