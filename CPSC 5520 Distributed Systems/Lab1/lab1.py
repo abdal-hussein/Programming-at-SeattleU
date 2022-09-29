@@ -38,10 +38,10 @@ class GCDClient(object):
     # Establish connection and send join message
     print(f"JOIN ({self.host}, {self.port})")
     response = GCDClient.connect(self.host, self.port, "JOIN")
-    if type(response) is str:
-      print(response)
-    else:
+    if type(response) is list:
       self.group = response
+    else:
+      print(response)
 
   def connect_to_members(self) -> None:
     """
