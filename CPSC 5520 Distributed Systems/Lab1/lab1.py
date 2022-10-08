@@ -1,5 +1,6 @@
 """
-CPSC 5520, Seattle University
+CPSC 5520 Distributed Systems
+Seattle University
 This is free and unencumbered software released into the public domain.
 :Authors: Justin Thoreson
 :Version: f22
