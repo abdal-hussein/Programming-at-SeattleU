@@ -11,7 +11,7 @@ Extra credit attempted:
 :Version: f22
 """
 
-from datetime import datetime as dt
+from datetime import datetime as dt, timedelta
 from enum import Enum
 from time import sleep
 import selectors
@@ -75,19 +75,12 @@ class BullyGroupMember(object):
   def run(self):
     """Runs the Lab2 Bully algorithm asynchronously via a selector loop"""
 
-    # Register listener to accept clients
+    # Register listener to accept clients, join group, start election
     self.set_state(State.WAITING_FOR_ANY_MESSAGE)
-
-    # Get members from GCD
     self.update_members(self.join_group())
+    self.start_election('joining group')
 
-    # Send election or declare vitory
-    if max(self.members.keys()) > self.pid:
-      self.start_election('joining group')
-    else:
-      self.declare_victory('I am the biggest bully')
-
-    # Selector loop for asynchronous message passing
+    # Execute selector loop for asynchronous communication between peers
     while True:
       events = self.selector.select(CHECK_INTERVAL)
       for key, mask in events:
@@ -141,8 +134,9 @@ class BullyGroupMember(object):
   def receive_message(self, peer):
     """Receive an asynchronous message from a particular peer
     
-    :param peer: The peer socket to receive a message from
+    :param peer: The member socket to receive a message from
     """
+    
     try:
       message = self.receive(peer)
       message_name, message_data = message if type(message) is tuple else (message, self.members)
@@ -151,39 +145,66 @@ class BullyGroupMember(object):
       self.set_state(State.WAITING_FOR_ANY_MESSAGE, switch_mode=True)
       self.set_quiescent(peer)
     else:
-      # Election
       if message_name == State.SEND_ELECTION.value:
-        print(f'{self.pr_sock(peer)}: received ELECTION [{self.pr_now()}]')
-        self.update_members(message_data)
-        self.send(peer, State.SEND_OK.value)
-        self.set_state(State.SEND_OK, peer, switch_mode=True)
-        if not self.is_election_in_progress():
-          if max(self.members.keys()) > self.pid:
-            self.start_election('election received from peer')
-          else:
-            self.declare_victory('I am the biggest bully')
-
-      # Ok
+        self.handle_election(peer, message_data)
       elif message_name == State.SEND_OK.value:
-        print(f'{self.pr_sock(peer)}: received OK [{self.pr_now()}]')
-        self.set_state(State.WAITING_FOR_VICTOR, switch_mode=True)
-        self.set_quiescent(peer)
-
-      # Coordinate
+        self.handle_ok(peer)
       elif message_name == State.SEND_VICTORY.value:
-        print(f'{self.pr_sock(peer)}: received COORDINATE [{self.pr_now()}]')
-        self.update_members(message_data)
-        self.set_state(State.WAITING_FOR_ANY_MESSAGE, switch_mode=True)
-        self.set_quiescent(peer)
-        self.set_leader(max(message_data.keys()))
-        print(f'Leader is now: {self.pr_leader()}')
-
-      # Probe
+        self.handle_coordinate(peer, message_data)
       elif message_name == State.SEND_PROBE.value:
-        print(f'{self.pr_sock(peer)}: received PROBE [{self.pr_now()}]')
-        print(f'{self.pr_sock(peer)}: sending OK [{self.pr_now()}]')
-        self.send(peer, State.SEND_OK.value)
-        self.set_quiescent(peer)
+        self.handle_probe(peer)
+
+  def handle_election(self, peer, message_data):
+    """Decides what to do after receiving an ELECTION message
+    
+    :param peer: The peer socket that sent the ELECTION message
+    :param message_data: The dictionary of members within the ELECTION message
+    """
+
+    print(f'{self.pr_sock(peer)}: received ELECTION [{self.pr_now()}]')
+    self.update_members(message_data)
+    self.send(peer, State.SEND_OK.value)
+    self.set_state(State.SEND_OK, peer, switch_mode=True)
+    if not self.is_election_in_progress():
+      if max(self.members.keys()) > self.pid:
+        self.start_election('election received from peer')
+      else:
+        self.declare_victory('I am the biggest bully')
+
+  def handle_ok(self, peer):
+    """Handles receipt of an OK message
+    
+    :param peer: The member socket that sent the OK message
+    """
+
+    print(f'{self.pr_sock(peer)}: received OK [{self.pr_now()}]')
+    self.set_state(State.WAITING_FOR_VICTOR, switch_mode=True)
+    self.set_quiescent(peer)
+  
+  def handle_coordinate(self, peer, message_data):
+    """Handles receipt of a COORDINATE message and sets the new leader
+    
+    :param peer: The peer socket that sent the COORDINATE message
+    :param message_data: The dictionary of members within the COORDINATE message
+    """
+
+    print(f'{self.pr_sock(peer)}: received COORDINATE [{self.pr_now()}]')
+    self.update_members(message_data)
+    self.set_state(State.WAITING_FOR_ANY_MESSAGE, switch_mode=True)
+    self.set_quiescent(peer)
+    self.set_leader(max(message_data.keys()))
+    print(f'Leader is now: {self.pr_leader()}')
+  
+  def handle_probe(self, peer):
+    """Responds to a PROBE message with an OK message
+
+    :param peer: The peer socket that sent the PROBE message
+    """
+
+    print(f'{self.pr_sock(peer)}: received PROBE [{self.pr_now()}]')
+    print(f'{self.pr_sock(peer)}: sending OK [{self.pr_now()}]')
+    self.send(peer, State.SEND_OK.value)
+    self.set_quiescent(peer)
 
   def check_timeouts(self):
     """Check all peers for timeout"""
@@ -282,7 +303,7 @@ class BullyGroupMember(object):
     :return: True if timeout occured, False otherwise
     """
 
-    if not peer:
+    if not peer: 
       return False
     return (dt.now() - dt.strptime(self.states[peer][1], '%H:%M:%S.%f')).seconds > threshold
   
@@ -482,17 +503,26 @@ class BullyGroupMember(object):
 
     return 'unknown' if self.bully is None else ('self' if self.bully == self.pid else self.bully)
 
+def pr_usage():
+  """Prints command line usage and terminates program"""
+
+  print('USAGE: python3 lab2.py <host> <port> <nextbirthday> <suid>')
+  exit(1)
+
 def main():
   """Executes the Bully algorithm through the BullyGroupMember"""
 
   # Check sufficient number of args
   if len(sys.argv) != 5:
-    print('USAGE: python3 lab2.py <host> <port> <nextbirthday> <suid>')
-    exit(1)
+    pr_usage()
 
   # Get command line arguments
   host, port = sys.argv[1], int(sys.argv[2])
   bday, suid = dt.strptime(sys.argv[3], '%Y-%m-%d'), int(sys.argv[4])
+
+  # Check if birthday is future or past birthday
+  if bday - dt.now() < timedelta(days=1):
+    pr_usage()
 
   # Run bully algorithm group member
   member = BullyGroupMember(host, port, bday, suid)
