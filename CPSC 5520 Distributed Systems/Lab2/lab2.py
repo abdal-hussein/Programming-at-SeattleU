@@ -3,7 +3,9 @@ CPSC 5520 Distributed Systems
 Seattle University
 This is free and unencumbered software released into the public domain.
 
-Extra credit attempted: PROBE
+Extra credit attempted:
+- PROBE
+- Feigning failure
 
 :Authors: Justin Thoreson
 :Version: f22
@@ -11,27 +13,27 @@ Extra credit attempted: PROBE
 
 from datetime import datetime as dt
 from enum import Enum
+from time import sleep
 import selectors
 import socket
 import pickle
 import random
 import sys
 
-BUF_SZ = 1024 # Per Prof. Lundeen: TCP receive buffer size
+BUF_SZ = 1024
 CHECK_INTERVAL = 1
 ASSUME_FAILURE_TIMEOUT = 1.5
-PEER_DIGITS = 100
+PEER_DIGITS_MODULUS = 100
+PEER_DIGITS_DISPLAY = 10
 
 class State(Enum):
   """Enumeration of states a peer can be in for the Lab2 class."""
-  
-  # Message to send to GCD
-  SEND_JOIN = "JOIN"
 
   # Erase any memory of this peer
   QUIESCENT = 'QUIESCENT'
 
   # Outgoing message is pending
+  SEND_JOIN = 'JOIN' # Message to send to GCD (unrelated to member states)
   SEND_ELECTION = 'ELECTION'
   SEND_VICTORY = 'COORDINATOR'
   SEND_OK = 'OK'
@@ -68,6 +70,7 @@ class BullyGroupMember(object):
     self.selector = selectors.DefaultSelector()
     self.listener, self.listener_address = self.start_a_server()
     self.last_probe = self.pr_now()
+    self.last_feigned_failure = self.pr_now()
 
   def run(self):
     """Runs the Lab2 Bully algorithm asynchronously via a selector loop"""
@@ -80,9 +83,9 @@ class BullyGroupMember(object):
 
     # Send election or declare vitory
     if max(self.members.keys()) > self.pid:
-      self.start_election("joining group")
+      self.start_election('joining group')
     else:
-      self.declare_victory("I am the biggest bully")
+      self.declare_victory('I am the biggest bully')
 
     # Selector loop for asynchronous message passing
     while True:
@@ -96,18 +99,19 @@ class BullyGroupMember(object):
           self.send_message(key.fileobj)
       self.check_timeouts()
       self.probe_leader()
+      self.feign_failure()
 
   def accept_peer(self):
     """Accept TCP/IP connections from peer"""
 
     try:
       connection, _address = self.listener.accept()
-      print(f"{self.pr_sock(connection)}: accepted [{self.pr_now()}]")
+      print(f'{self.pr_sock(connection)}: accepted [{self.pr_now()}]')
       connection.setblocking(False)
       connection.settimeout(ASSUME_FAILURE_TIMEOUT)
       self.set_state(State.WAITING_FOR_ANY_MESSAGE, connection)
     except Exception as err:
-      print(f"{self.pr_sock(connection)}: failed to accept [{self.pr_now()}]")
+      print(f'{self.pr_sock(connection)}: failed to accept [{self.pr_now()}]')
 
   def send_message(self, peer):
     """Send the queued message to the given peer based on its current state
@@ -124,11 +128,11 @@ class BullyGroupMember(object):
         members = self.members
       self.send(peer, state.value, members)
     except ConnectionError as err:
-      print(err)
+      print(f'Error connecting to peer: {err}')
     except Exception as err:
-      print(err)
+      print(f'Error sending message: {err}')
 
-    # Check to see if we watnt to wait for response immediately
+    # Check to see if we want to wait for response immediately
     if state == State.SEND_ELECTION:
       self.set_state(State.WAITING_FOR_OK, peer, switch_mode=True)
     else:
@@ -139,51 +143,75 @@ class BullyGroupMember(object):
     
     :param peer: The peer socket to receive a message from
     """
-    
-    message = self.receive(peer)
-    message_name, message_data = message if type(message) is tuple else (message, self.members)
-
-    # Election
-    if message_name == State.SEND_ELECTION.value:
-      self.update_members(message_data)
-      print(f"{self.pr_sock(peer)}: received ELECTION [{self.pr_now()}]")
-      self.send(peer, State.SEND_OK.value)
-      self.set_state(State.SEND_OK, peer, switch_mode=True)
-      if not self.is_election_in_progress():
-        if max(self.members.keys()) > self.pid:
-          self.start_election("election received from peer")
-        else:
-          self.declare_victory("I am the biggest bully")
-
-    # Ok
-    elif message_name == State.SEND_OK.value:
-      print(f"{self.pr_sock(peer)}: received OK [{self.pr_now()}]")
-      self.set_state(State.WAITING_FOR_VICTOR, switch_mode=True)
-      self.set_quiescent(peer)
-
-    # Coordinate
-    elif message_name == State.SEND_VICTORY.value:
-      print(f"{self.pr_sock(peer)}: received COORDINATE [{self.pr_now()}]")
-      self.update_members(message_data)
+    try:
+      message = self.receive(peer)
+      message_name, message_data = message if type(message) is tuple else (message, self.members)
+    except Exception:
+      print(f'{self.pr_sock(peer)}: failed to receive message [{self.pr_now()}]')
       self.set_state(State.WAITING_FOR_ANY_MESSAGE, switch_mode=True)
       self.set_quiescent(peer)
-      self.set_leader(max(message_data.keys()))
-      print(f"Bully: {self.pr_leader()}")
+    else:
+      # Election
+      if message_name == State.SEND_ELECTION.value:
+        print(f'{self.pr_sock(peer)}: received ELECTION [{self.pr_now()}]')
+        self.update_members(message_data)
+        self.send(peer, State.SEND_OK.value)
+        self.set_state(State.SEND_OK, peer, switch_mode=True)
+        if not self.is_election_in_progress():
+          if max(self.members.keys()) > self.pid:
+            self.start_election('election received from peer')
+          else:
+            self.declare_victory('I am the biggest bully')
 
-    # Probe
-    elif message_name == State.SEND_PROBE.value:
-      print(f"{self.pr_sock(peer)}: received PROBE [{self.pr_now()}]")
-      print(f"{self.pr_sock(peer)}: sending OK [{self.pr_now()}]")
-      self.send(peer, State.SEND_OK.value, self.members)
+      # Ok
+      elif message_name == State.SEND_OK.value:
+        print(f'{self.pr_sock(peer)}: received OK [{self.pr_now()}]')
+        self.set_state(State.WAITING_FOR_VICTOR, switch_mode=True)
+        self.set_quiescent(peer)
+
+      # Coordinate
+      elif message_name == State.SEND_VICTORY.value:
+        print(f'{self.pr_sock(peer)}: received COORDINATE [{self.pr_now()}]')
+        self.update_members(message_data)
+        self.set_state(State.WAITING_FOR_ANY_MESSAGE, switch_mode=True)
+        self.set_quiescent(peer)
+        self.set_leader(max(message_data.keys()))
+        print(f'Leader is now: {self.pr_leader()}')
+
+      # Probe
+      elif message_name == State.SEND_PROBE.value:
+        print(f'{self.pr_sock(peer)}: received PROBE [{self.pr_now()}]')
+        print(f'{self.pr_sock(peer)}: sending OK [{self.pr_now()}]')
+        self.send(peer, State.SEND_OK.value)
+        self.set_quiescent(peer)
+
+  def check_timeouts(self):
+    """Check all peers for timeout"""
+
+    expired = [peer for peer in self.states if not self.listener == peer and self.is_expired(peer)]
+    for peer in expired:
       self.set_quiescent(peer)
+    if self.is_expired(self.listener):
+      state = self.get_state(self.listener)
+      if state == State.WAITING_FOR_OK:
+        self.declare_victory('bigger bullies timed out')
+      elif state == State.WAITING_FOR_VICTOR:
+        self.start_election('COORDINATE not received')
 
+  # Consulted Ana Mendes for help w/ PROBE 
   def is_time_to_probe(self):
+    """Determines if it's a proper time to send a probe message to the leader
+    
+    :return: True if proper time to probe, False otherwise
+    """
+
     probe_time = random.uniform(0.5, 3.0)
-    last_probe = dt.strptime(self.last_probe, "%H:%M:%S.%f")
+    last_probe = dt.strptime(self.last_probe, '%H:%M:%S.%f')
     is_time_to_probe = (dt.now() - last_probe).seconds > probe_time
     is_valid_bully = not self.is_election_in_progress() and not self.bully == self.pid
     return is_time_to_probe and is_valid_bully
 
+  # Consulted Ana Mendes for help w/ PROBE
   def probe_leader(self):
     """Sends a PROBE message to the leader"""
 
@@ -192,33 +220,31 @@ class BullyGroupMember(object):
       peer = self.get_connection(leader)
       is_successful_probe = True
       if peer:
-        print(f"{self.pr_sock(peer)}: sending PROBE [{self.pr_now()}]")
+        print(f'{self.pr_sock(peer)}: sending PROBE [{self.pr_now()}]')
         try:
           response = self.send(peer, State.SEND_PROBE.value, wait_for_reply=True)
           if response and response == State.SEND_OK.value:
-            print(f"{self.pr_sock(peer)}: received OK [{self.pr_now()}]")
+            print(f'{self.pr_sock(peer)}: received OK [{self.pr_now()}]')
         except Exception:
-          print(f"{self.pr_sock(peer)}: PROBE unsuccessful [{self.pr_now()}]")
+          print(f'{self.pr_sock(peer)}: PROBE unsuccessful [{self.pr_now()}]')
           is_successful_probe = False
         self.set_quiescent(peer)
       elif not peer or not is_successful_probe:
-        self.declare_victory("leader has failed")
+        self.declare_victory('leader has failed')
 
-  def check_timeouts(self):
-    """Check all peers for timeout"""
-
-    expired = []
-    for peer in self.states:
-      if not self.listener == peer and self.is_expired(peer):
-        expired.append(peer)
-    for peer in expired:
-      self.set_quiescent(peer)
-    if self.is_expired(self.listener):
-      state = self.get_state(self.listener)
-      if state == State.WAITING_FOR_OK:
-        self.declare_victory("bigger bullies timed out")
-      elif state == State.WAITING_FOR_VICTOR:
-        self.start_election("COORDINATE not received")
+  # Consulted Ana mendes and Remi Ta for tips on feigning failure
+  def feign_failure(self):
+    """Present false appearance of failure to other peers"""
+    
+    sleep_duration = random.uniform(1, 4)
+    sleep_reference_time = random.uniform(0, 10)
+    last_feigned_failure = dt.strptime(self.last_feigned_failure, '%H:%M:%S.%f')
+    is_feigning_time = (dt.now() - last_feigned_failure).seconds > sleep_reference_time
+    if is_feigning_time:
+      print("Going to sleep...")
+      sleep(sleep_duration)
+      print("Waking up...")
+      self.start_election("waking up")
 
   def get_connection(self, member):
     """Establishes a connection for a particular member w/ their address
@@ -323,7 +349,7 @@ class BullyGroupMember(object):
           self.set_state(State.WAITING_FOR_OK, switch_mode=True)
           has_connected_to_bully = True
     if not has_connected_to_bully:
-      self.declare_victory("no bigger bullies")
+      self.declare_victory('I am the biggest bully')
   
   def declare_victory(self, reason):
     """Declare self as bully by sending coordinate messages to all other peers
@@ -331,10 +357,10 @@ class BullyGroupMember(object):
     :param reason: The reason for declaring victory
     """
     
-    print(f"VICTORY: {reason}")
+    print(f'Victory by {self.pid}: {reason}')
     self.set_leader(self.pid)
     self.set_state(State.WAITING_FOR_ANY_MESSAGE, switch_mode=True)
-    print(f"Bully: {self.pr_leader()}")
+    print(f'Leader is now: {self.pr_leader()}')
     for member in self.members.items():
       if member[0] < self.pid:
         peer = self.get_connection(member)
@@ -387,7 +413,7 @@ class BullyGroupMember(object):
     """
 
     sock = socket.socket()
-    sock.bind(("", 0))
+    sock.bind(('', 0))
     _, port = sock.getsockname()
     sock.close()
     return port
@@ -400,7 +426,7 @@ class BullyGroupMember(object):
     """
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM | socket.SOCK_NONBLOCK)
-    server_address = ("localhost", (BullyGroupMember.get_unused_port()))
+    server_address = ('localhost', (BullyGroupMember.get_unused_port()))
     server_socket.bind(server_address)
     server_socket.listen(5)
     return server_socket, server_address
@@ -416,7 +442,8 @@ class BullyGroupMember(object):
       try:
         gcd_sock.connect(self.gcd_address)
       except socket.error as err:
-        response = f"Failed to connect: {err}"
+        print(f'Failed to join group: {err}')
+        exit(1)
       else:
         self.send(gcd_sock, State.SEND_JOIN.value, (self.pid, self.listener_address))
         response = self.receive(gcd_sock)
@@ -439,12 +466,16 @@ class BullyGroupMember(object):
   def cpr_sock(sock):
     """Static version of helper for printing given socket."""
 
-    l_port = sock.getsockname()[1] % PEER_DIGITS
+    l_port = sock.getsockname()[1] % PEER_DIGITS_MODULUS
+    l_port = f'0{l_port}' if l_port < PEER_DIGITS_DISPLAY else str(l_port)
     try:
-      r_port = sock.getpeername()[1] % PEER_DIGITS
+      r_port = sock.getpeername()[1] % PEER_DIGITS_MODULUS
     except OSError:
-      r_port = '???'
-    return '{}->{} ({})'.format(l_port, r_port, id(sock))
+      r_port = '??'
+    else:
+      r_port = f'0{r_port}' if r_port < PEER_DIGITS_DISPLAY else str(r_port)
+
+    return f'{l_port}->{r_port} ({id(sock)})'
   
   def pr_leader(self):
     """Printing helper for current leader's name."""
@@ -456,16 +487,16 @@ def main():
 
   # Check sufficient number of args
   if len(sys.argv) != 5:
-    print("USAGE: python3 lab2.py <host> <port> <nextbirthday> <suid>")
+    print('USAGE: python3 lab2.py <host> <port> <nextbirthday> <suid>')
     exit(1)
 
   # Get command line arguments
   host, port = sys.argv[1], int(sys.argv[2])
-  bday, suid = dt.strptime(sys.argv[3], "%Y-%m-%d"), int(sys.argv[4])
+  bday, suid = dt.strptime(sys.argv[3], '%Y-%m-%d'), int(sys.argv[4])
 
   # Run bully algorithm group member
   member = BullyGroupMember(host, port, bday, suid)
   member.run()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   main()
