@@ -232,7 +232,7 @@ class BullyGroupMember(object):
       elif not peer or not is_successful_probe:
         self.declare_victory('leader has failed')
 
-  # Consulted Ana mendes and Remi Ta for tips on feigning failure
+  # Consulted Ana Mendes and Remi Ta for tips on feigning failure
   def feign_failure(self):
     """Present false appearance of failure to other peers"""
     
