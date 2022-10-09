@@ -121,9 +121,9 @@ class BullyGroupMember(object):
         members = self.members
       self.send(peer, state.value, members)
     except ConnectionError as err:
-      print(f'Error connecting to peer: {err}')
+      print(f'Error connecting to peer: {err} [{self.pr_now()}]')
     except Exception as err:
-      print(f'Error sending message: {err}')
+      print(f'Error sending message: {err} [{self.pr_now()}]')
 
     # Check to see if we want to wait for response immediately
     if state == State.SEND_ELECTION:
@@ -193,7 +193,7 @@ class BullyGroupMember(object):
     self.set_state(State.WAITING_FOR_ANY_MESSAGE, switch_mode=True)
     self.set_quiescent(peer)
     self.set_leader(max(message_data.keys()))
-    print(f'Leader is now: {self.pr_leader()}')
+    print(f'Leader is now: {self.pr_leader()} [{self.pr_now()}]')
   
   def handle_probe(self, peer):
     """Responds to a PROBE message with an OK message
@@ -262,10 +262,10 @@ class BullyGroupMember(object):
     last_feigned_failure = dt.strptime(self.last_feigned_failure, '%H:%M:%S.%f')
     is_feigning_time = (dt.now() - last_feigned_failure).seconds > sleep_reference_time
     if is_feigning_time:
-      print("Going to sleep...")
+      print(f'Going to sleep... [{self.pr_now()}]')
       sleep(sleep_duration)
-      print("Waking up...")
-      self.start_election("waking up")
+      print(f'Waking up... [{self.pr_now()}]')
+      self.start_election('waking up')
 
   def get_connection(self, member):
     """Establishes a connection for a particular member w/ their address
@@ -360,7 +360,7 @@ class BullyGroupMember(object):
     :param reason: The reason for starting an election
     """
 
-    print(f'Starting an election: {reason}')
+    print(f'Starting an election: {reason} [{self.pr_now()}]')
     has_connected_to_bully = False
     for member in self.members.items():
       if member[0] > self.pid:
@@ -378,10 +378,10 @@ class BullyGroupMember(object):
     :param reason: The reason for declaring victory
     """
     
-    print(f'Victory by {self.pid}: {reason}')
+    print(f'Victory by {self.pid}: {reason} [{self.pr_now()}]')
     self.set_leader(self.pid)
     self.set_state(State.WAITING_FOR_ANY_MESSAGE, switch_mode=True)
-    print(f'Leader is now: {self.pr_leader()}')
+    print(f'Leader is now: {self.pr_leader()} [{self.pr_now()}]')
     for member in self.members.items():
       if member[0] < self.pid:
         peer = self.get_connection(member)
@@ -463,7 +463,7 @@ class BullyGroupMember(object):
       try:
         gcd_sock.connect(self.gcd_address)
       except socket.error as err:
-        print(f'Failed to join group: {err}')
+        print(f'Failed to join group: {err} [{self.pr_now()}]')
         exit(1)
       else:
         self.send(gcd_sock, State.SEND_JOIN.value, (self.pid, self.listener_address))
