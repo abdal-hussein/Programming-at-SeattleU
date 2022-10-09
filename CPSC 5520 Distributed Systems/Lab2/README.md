@@ -9,6 +9,8 @@ ELECTION - Initiates an election to determine who the leader of the group is\
 COORDINATE - Sent by the leader to all other members with lower indentity values to declare victory\
 PROBE - Sent to the leader periodically by all members with lower indentity values to monitor the active status of the leader
 
+Additionally, members feign failure to simulate spontaneous failures and recoveries within a distributed system.
+
 ### Files:
 lab2.py - The bully algorithm group member\
 gcd2.py - The GCD server (provided by professor)
