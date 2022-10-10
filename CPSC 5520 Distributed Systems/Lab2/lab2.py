@@ -11,13 +11,13 @@ Extra credit attempted:
 :Version: f22
 """
 
-from datetime import datetime as dt, timedelta
-from enum import Enum
+from datetime import datetime as dt
+from random import uniform as rng
 from time import sleep
+from enum import Enum
 import selectors
 import socket
 import pickle
-import random
 import sys
 
 BUF_SZ = 1024
@@ -75,12 +75,18 @@ class BullyGroupMember(object):
   def run(self):
     """Runs the Lab2 Bully algorithm asynchronously via a selector loop"""
 
-    # Register listener to accept clients, join group, start election
     self.set_state(State.WAITING_FOR_ANY_MESSAGE)
     self.update_members(self.join_group())
     self.start_election('joining group')
+    try:
+      self.execute_selector_loop()
+    except KeyboardInterrupt:
+      self.pr_log('Execution halted: keyboard interrupt')
+      self.listener.close()
 
-    # Execute selector loop for asynchronous communication between peers
+  def execute_selector_loop(self):
+    """Executes selector loop for asynchronous communication between peers"""
+    
     while True:
       events = self.selector.select(CHECK_INTERVAL)
       for key, mask in events:
@@ -104,12 +110,12 @@ class BullyGroupMember(object):
       connection.settimeout(ASSUME_FAILURE_TIMEOUT)
       self.set_state(State.WAITING_FOR_ANY_MESSAGE, connection)
     except Exception as err:
-      self.pr_log(f'{self.pr_sock(connection)}: failed to accept')
+      self.pr_log(f'{self.pr_sock(connection)}: failed to accept: {err}')
 
   def send_message(self, peer):
     """Send the queued message to the given peer based on its current state
     
-    :param peer: A peers designated socket
+    :param peer: A member's designated socket
     """
 
     state = self.get_state(peer)
@@ -140,8 +146,8 @@ class BullyGroupMember(object):
     try:
       message = self.receive(peer)
       message_name, message_data = message if type(message) is tuple else (message, self.members)
-    except Exception:
-      self.pr_log(f'{self.pr_sock(peer)}: failed to receive message')
+    except Exception as err:
+      self.pr_log(f'{self.pr_sock(peer)}: failed to receive message {err}')
       self.set_state(State.WAITING_FOR_ANY_MESSAGE, switch_mode=True)
       self.set_quiescent(peer)
     else:
@@ -226,7 +232,7 @@ class BullyGroupMember(object):
     :return: True if proper time to probe, False otherwise
     """
 
-    probe_time = random.uniform(0.5, 3.0)
+    probe_time = rng(0.5, 3.0)
     last_probe = dt.strptime(self.last_probe, '%H:%M:%S.%f')
     is_time_to_probe = (dt.now() - last_probe).seconds > probe_time
     is_valid_bully = not self.is_election_in_progress() and not self.bully == self.pid
@@ -251,14 +257,14 @@ class BullyGroupMember(object):
           is_successful_probe = False
         self.set_quiescent(peer)
       elif not peer or not is_successful_probe:
-        self.declare_victory('leader has failed')
+        self.start_election('leader has failed')
 
   # Consulted Ana Mendes and Remi Ta for tips on feigning failure
   def feign_failure(self):
     """Present false appearance of failure to other peers"""
     
-    sleep_duration = random.uniform(1, 4)
-    sleep_reference_time = random.uniform(0, 10)
+    sleep_duration = rng(1, 4)
+    sleep_reference_time = rng(0, 10)
     last_feigned_failure = dt.strptime(self.last_feigned_failure, '%H:%M:%S.%f')
     is_feigning_time = (dt.now() - last_feigned_failure).seconds > sleep_reference_time
     if is_feigning_time:
@@ -518,19 +524,34 @@ def pr_usage():
   print('USAGE: python3 lab2.py <host> <port> <nextbirthday> <suid>')
   exit(1)
 
+def is_valid_input(bday, suid):
+  """Checks if command line input is valid
+  
+  :param bday: The birthday input
+  :param suid: The SU ID input
+  :return: True if valid input, False otherwise
+  """
+  
+  days_to_birthday = (bday - dt.now()).days
+  return 0 < days_to_birthday < 366 and 1_000_000 <= suid < 10_000_000
+
 def main():
   """Executes the Bully algorithm through the BullyGroupMember"""
 
-  # Check sufficient number of args
+  # Check sufficient number of arguments
   if len(sys.argv) != 5:
     pr_usage()
 
   # Get command line arguments
-  host, port = sys.argv[1], int(sys.argv[2])
-  bday, suid = dt.strptime(sys.argv[3], '%Y-%m-%d'), int(sys.argv[4])
+  try:
+    host, port = sys.argv[1], int(sys.argv[2])
+    bday, suid = dt.strptime(sys.argv[3], '%Y-%m-%d'), int(sys.argv[4])
+  except Exception as err:
+    print(err)
+    pr_usage()
 
-  # Check if birthday is future or past birthday
-  if bday - dt.now() < timedelta(days=1):
+  # Check birthday and suid are valid
+  if not is_valid_input(bday, suid):
     pr_usage()
 
   # Run bully algorithm group member
